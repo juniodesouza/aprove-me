@@ -1,0 +1,3 @@
+- Do not run integration tests
+- Never use entities inside controllers
+- Controllers can only call usecases and presenters
