@@ -7,6 +7,8 @@ import { setupSwagger } from './shared/infrastructure/docs/swagger'
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
 
+  app.setGlobalPrefix('integrations')
+
   setupSwagger(app)
 
   applyGlobalConfig(app)
