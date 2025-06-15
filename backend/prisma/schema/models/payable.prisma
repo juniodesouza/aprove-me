@@ -1,0 +1,14 @@
+model Payable {
+  id String @id @default(uuid())
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  value        Int
+  emissionDate DateTime @map("emission_date")
+  assignorId   String   @map("assignor_id")
+
+  assignor Assignor @relation(fields: [assignorId], references: [id])
+
+  @@map("payables")
+}
