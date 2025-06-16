@@ -2,7 +2,9 @@ import { PrismaService } from '@/shared/infrastructure/database/prisma.service'
 import { AssignorEntity } from '../domain/assignor.entity'
 import { AssignorRepository } from '../domain/assignor.repository'
 import { handlePrismaError } from '@/shared/infrastructure/database/handle-prisma-error'
+import { Injectable } from '@nestjs/common'
 
+@Injectable()
 export class AssignorPrismaRepository implements AssignorRepository {
   constructor(private readonly prisma: PrismaService) {}
 
@@ -52,6 +54,20 @@ export class AssignorPrismaRepository implements AssignorRepository {
       await this.prisma.assignor.delete({
         where: { id },
       })
+    } catch (error) {
+      handlePrismaError(error)
+    }
+  }
+
+  async findByDocument(document: string): Promise<AssignorEntity | null> {
+    try {
+      const found = await this.prisma.assignor.findUnique({
+        where: { document },
+      })
+
+      if (!found) return null
+
+      return new AssignorEntity(found)
     } catch (error) {
       handlePrismaError(error)
     }

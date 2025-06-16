@@ -1,13 +1,14 @@
 import { applyDecorators } from '@nestjs/common'
 import { ApiResponse } from '@nestjs/swagger'
 import { CreatePayableDto } from '../application/dtos/create.dto'
+import { PayableResponseDto } from './payable.response.dto'
 
 export function CreatePayableDoc() {
   return applyDecorators(
     ApiResponse({
       status: 201,
       description: 'Item created',
-      type: CreatePayableDto,
+      type: PayableResponseDto,
     }),
     ApiResponse({
       status: 422,

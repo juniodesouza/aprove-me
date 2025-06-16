@@ -1,14 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { Expose } from 'class-transformer'
-import {
-  IsDate,
-  IsEmail,
-  IsNotEmpty,
-  IsString,
-  Length,
-  Matches,
-  ValidateNested,
-} from 'class-validator'
+import { IsEmail, IsNotEmpty, IsString, Length, Matches } from 'class-validator'
 
 export class CreateAssignorDto {
   @ApiProperty({ example: '12345678901' })

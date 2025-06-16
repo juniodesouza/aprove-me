@@ -2,7 +2,9 @@ import { PrismaService } from '@/shared/infrastructure/database/prisma.service'
 import { handlePrismaError } from '@/shared/infrastructure/database/handle-prisma-error'
 import { PayableEntity } from '../domain/payable.entity'
 import { PayableRepository } from '../domain/payable.repository'
+import { Injectable } from '@nestjs/common'
 
+@Injectable()
 export class PayablePrismaRepository implements PayableRepository {
   constructor(private readonly prisma: PrismaService) {}
 

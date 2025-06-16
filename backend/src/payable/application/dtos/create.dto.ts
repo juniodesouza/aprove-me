@@ -1,9 +1,8 @@
 import { CreateAssignorDto } from '@/assignor/application/dtos/create.dto'
 import { ApiProperty } from '@nestjs/swagger'
-import { Expose, Type } from 'class-transformer'
+import { Expose, Transform, Type } from 'class-transformer'
 import {
   IsDate,
-  IsEmail,
   IsNotEmpty,
   IsNumber,
   IsObject,
@@ -15,6 +14,7 @@ export class CreatePayableDto {
     example: 1250.35,
   })
   @Expose()
+  @Transform(({ value }) => value * 100)
   @IsNumber()
   @IsNotEmpty()
   value: number
@@ -24,7 +24,7 @@ export class CreatePayableDto {
   @Type(() => Date)
   @IsDate()
   @IsNotEmpty()
-  saleDate: Date
+  emissionDate: Date
 
   @ApiProperty()
   @Expose()
