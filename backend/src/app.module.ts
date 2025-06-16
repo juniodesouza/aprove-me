@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config'
 import { HealthModule } from './health/health.module'
 import { PayabledModule } from './payable/payable.module'
 import { AssignorModule } from './assignor/assignor.module'
+import { UserModule } from './user/user.module'
 
 @Module({
   imports: [
@@ -10,6 +11,7 @@ import { AssignorModule } from './assignor/assignor.module'
     HealthModule,
     PayabledModule,
     AssignorModule,
+    UserModule,
   ],
   controllers: [],
   providers: [],
