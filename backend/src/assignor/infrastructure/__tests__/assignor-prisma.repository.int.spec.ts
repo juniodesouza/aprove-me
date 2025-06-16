@@ -17,6 +17,11 @@ describe('AssignorPrismaRepository integration tests', () => {
     sut = module.get<AssignorPrismaRepository>(AssignorPrismaRepository)
     prisma = module.get<PrismaService>(PrismaService)
 
+    await prisma.payable.deleteMany({})
+    await prisma.assignor.deleteMany({})
+  })
+
+  afterAll(async () => {
     await prisma.assignor.deleteMany({})
   })
 
