@@ -1,4 +1,4 @@
-import { PayableEntity, PayableProps } from '@/payable/domain/payable.entity'
+import { PayableEntity } from '@/payable/domain/payable.entity'
 import { PayableRepository } from '@/payable/domain/payable.repository'
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { UpdatePayableDto } from '../dtos/payable.update.dto'
