@@ -1,4 +1,4 @@
-import { setupPrismaTests } from '@/shared/infrastructure/database/setup-prisma-tests'
+import { setupPrismaTests } from './src/shared/infrastructure/database/setup-prisma-tests'
 import * as dotenv from 'dotenv'
 import { existsSync } from 'fs'
 
