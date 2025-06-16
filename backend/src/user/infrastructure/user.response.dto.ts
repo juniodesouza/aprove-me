@@ -17,8 +17,4 @@ export class UserResponseDto {
   @Expose()
   @ApiProperty()
   login: string
-
-  @Expose()
-  @ApiProperty()
-  password: string
 }
