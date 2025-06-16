@@ -6,6 +6,7 @@ import { PayableRepository } from './domain/payable.repository'
 import { PayablePrismaRepository } from './infrastructure/payable-prisma.repository'
 import { AssignorModule } from '@/assignor/assignor.module'
 import { FindPayableByIdUseCase } from './application/usecases/payable.find-by-id.usecase'
+import { UpdatePayableUseCase } from './application/usecases/payable.update.usecase'
 
 @Module({
   imports: [AssignorModule],
@@ -18,6 +19,7 @@ import { FindPayableByIdUseCase } from './application/usecases/payable.find-by-i
     },
     CreatePayableUseCase,
     FindPayableByIdUseCase,
+    UpdatePayableUseCase,
   ],
   exports: [],
 })

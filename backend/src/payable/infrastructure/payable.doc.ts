@@ -37,3 +37,13 @@ export function FindPayableByIdDoc() {
     }),
   )
 }
+
+export function UpdatePayableDoc() {
+  return applyDecorators(
+    ApiResponse({
+      status: 200,
+      description: 'Item updated',
+      type: PayableResponseDto,
+    }),
+  )
+}
