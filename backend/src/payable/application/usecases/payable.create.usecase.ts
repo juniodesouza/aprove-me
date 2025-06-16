@@ -1,9 +1,8 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, NotFoundException } from '@nestjs/common'
 import { PayableRepository } from '@/payable/domain/payable.repository'
 import { PayableEntity } from '@/payable/domain/payable.entity'
 import { CreatePayableDto } from '../dtos/payable.create.dto'
 import { AssignorRepository } from '@/assignor/domain/assignor.repository'
-import { AssignorEntity } from '@/assignor/domain/assignor.entity'
 
 @Injectable()
 export class CreatePayableUseCase {
@@ -13,22 +12,18 @@ export class CreatePayableUseCase {
   ) {}
 
   async execute(data: CreatePayableDto): Promise<PayableEntity> {
-    let assignor = await this.assignorRepository.findByDocument(
-      data.assignor.document,
-    )
+    let assignor = await this.assignorRepository.findById(data.assignorId)
 
     if (!assignor) {
-      assignor = await this.assignorRepository.create(
-        new AssignorEntity(data.assignor),
+      throw new NotFoundException(
+        `Assignor with id ${data.assignorId} not found`,
       )
     }
 
-    const payable = new PayableEntity({
-      value: data.value,
-      emissionDate: data.emissionDate,
-      assignorId: assignor.props.id,
-    })
-
-    return await this.payableRepository.create(payable)
+    return await this.payableRepository.create(
+      new PayableEntity({
+        ...data,
+      }),
+    )
   }
 }

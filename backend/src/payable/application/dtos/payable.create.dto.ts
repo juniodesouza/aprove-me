@@ -1,13 +1,6 @@
-import { CreateAssignorDto } from '@/assignor/application/dtos/assignor.create.dto'
 import { ApiProperty } from '@nestjs/swagger'
 import { Expose, Transform, Type } from 'class-transformer'
-import {
-  IsDate,
-  IsNotEmpty,
-  IsNumber,
-  IsObject,
-  ValidateNested,
-} from 'class-validator'
+import { IsDate, IsNotEmpty, IsNumber, IsUUID } from 'class-validator'
 
 export class CreatePayableDto {
   @ApiProperty({
@@ -26,11 +19,12 @@ export class CreatePayableDto {
   @IsNotEmpty()
   emissionDate: Date
 
-  @ApiProperty()
+  @ApiProperty({
+    format: 'uuid',
+    description: 'Unique identifier for the assignor',
+  })
   @Expose()
-  @ValidateNested()
-  @Type(() => CreateAssignorDto)
-  @IsObject()
+  @IsUUID(4)
   @IsNotEmpty()
-  assignor: CreateAssignorDto
+  assignorId: string
 }

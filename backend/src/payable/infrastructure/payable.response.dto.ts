@@ -23,6 +23,8 @@ export class PayableResponseDto {
   emissionDate: Date
 
   @Expose()
-  @ApiProperty()
+  @ApiProperty({
+    format: 'uuid',
+  })
   assignorId: string
 }
