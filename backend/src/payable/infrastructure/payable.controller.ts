@@ -1,6 +1,15 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common'
 import {
   CreatePayableDoc,
+  DeletePayableDoc,
   FindPayableByIdDoc,
   UpdatePayableDoc,
 } from './payable.doc'
@@ -10,6 +19,7 @@ import { PayablePresenter } from './payable.presenter'
 import { FindPayableByIdUseCase } from '../application/usecases/payable.find-by-id.usecase'
 import { UpdatePayableDto } from '../application/dtos/payable.update.dto'
 import { UpdatePayableUseCase } from '../application/usecases/payable.update.usecase'
+import { DeletePayableUseCase } from '../application/usecases/payable.delete.usecase'
 
 @Controller('payable')
 export class PayableController {
@@ -17,6 +27,7 @@ export class PayableController {
     private readonly createPayableUseCase: CreatePayableUseCase,
     private readonly findPayableByIdUseCase: FindPayableByIdUseCase,
     private readonly updatePayableUseCase: UpdatePayableUseCase,
+    private readonly deletePayableUseCase: DeletePayableUseCase,
   ) {}
 
   @CreatePayableDoc()
@@ -46,5 +57,11 @@ export class PayableController {
       data: updatePayableDto,
     })
     return PayablePresenter.toHttp(updatedPayable)
+  }
+
+  @DeletePayableDoc()
+  @Delete(':id')
+  async remove(@Param('id') id: string) {
+    return await this.deletePayableUseCase.execute(id)
   }
 }

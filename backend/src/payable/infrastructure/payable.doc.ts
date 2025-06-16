@@ -47,3 +47,16 @@ export function UpdatePayableDoc() {
     }),
   )
 }
+
+export function DeletePayableDoc() {
+  return applyDecorators(
+    ApiResponse({
+      status: 200,
+      description: 'Item deleted',
+    }),
+    ApiResponse({
+      status: 404,
+      description: 'Item not found',
+    }),
+  )
+}
