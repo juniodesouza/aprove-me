@@ -3,8 +3,10 @@ import { Expose, Transform } from 'class-transformer'
 
 export class PayableResponseDto {
   @Expose()
-  @ApiProperty()
-  id: number
+  @ApiProperty({
+    format: 'uuid',
+  })
+  id: string
 
   @Expose()
   @ApiProperty()

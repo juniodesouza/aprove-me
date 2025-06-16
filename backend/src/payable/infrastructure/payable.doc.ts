@@ -1,5 +1,5 @@
 import { applyDecorators } from '@nestjs/common'
-import { ApiResponse } from '@nestjs/swagger'
+import { ApiParam, ApiResponse } from '@nestjs/swagger'
 import { CreatePayableDto } from '../application/dtos/payable.create.dto'
 import { PayableResponseDto } from './payable.response.dto'
 
@@ -26,6 +26,10 @@ export function CreatePayableDoc() {
 
 export function FindPayableByIdDoc() {
   return applyDecorators(
+    ApiParam({
+      name: 'id',
+      format: 'uuid',
+    }),
     ApiResponse({
       status: 200,
       description: 'Item found',
@@ -40,6 +44,10 @@ export function FindPayableByIdDoc() {
 
 export function UpdatePayableDoc() {
   return applyDecorators(
+    ApiParam({
+      name: 'id',
+      format: 'uuid',
+    }),
     ApiResponse({
       status: 200,
       description: 'Item updated',
@@ -50,6 +58,10 @@ export function UpdatePayableDoc() {
 
 export function DeletePayableDoc() {
   return applyDecorators(
+    ApiParam({
+      name: 'id',
+      format: 'uuid',
+    }),
     ApiResponse({
       status: 200,
       description: 'Item deleted',
