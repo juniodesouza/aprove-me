@@ -4,7 +4,7 @@ export type PayableProps = {
   id?: string
   createdAt?: Date
   updatedAt?: Date
-  value: string
+  value: number
   emissionDate: Date
   assignorId: string
 }
