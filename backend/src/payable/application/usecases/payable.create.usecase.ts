@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { PayableRepository } from '@/payable/domain/payable.repository'
 import { PayableEntity } from '@/payable/domain/payable.entity'
-import { CreatePayableDto } from '../dtos/create.dto'
+import { CreatePayableDto } from '../dtos/payable.create.dto'
 import { AssignorRepository } from '@/assignor/domain/assignor.repository'
 import { AssignorEntity } from '@/assignor/domain/assignor.entity'
 

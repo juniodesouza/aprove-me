@@ -1,4 +1,4 @@
-import { CreateAssignorDto } from '@/assignor/application/dtos/create.dto'
+import { CreateAssignorDto } from '@/assignor/application/dtos/assignor.create.dto'
 import { ApiProperty } from '@nestjs/swagger'
 import { Expose, Transform, Type } from 'class-transformer'
 import {

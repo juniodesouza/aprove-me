@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common'
 import { CreatePayableDoc } from './payable.doc'
-import { CreatePayableDto } from '../application/dtos/create.dto'
-import { CreatePayableUseCase } from '../application/usecases/create.usecase'
+import { CreatePayableDto } from '../application/dtos/payable.create.dto'
+import { CreatePayableUseCase } from '../application/usecases/payable.create.usecase'
 import { PayablePresenter } from './payable.presenter'
 
 @Controller('payable')

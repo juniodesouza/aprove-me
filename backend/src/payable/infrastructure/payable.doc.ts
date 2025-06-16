@@ -1,6 +1,6 @@
 import { applyDecorators } from '@nestjs/common'
 import { ApiResponse } from '@nestjs/swagger'
-import { CreatePayableDto } from '../application/dtos/create.dto'
+import { CreatePayableDto } from '../application/dtos/payable.create.dto'
 import { PayableResponseDto } from './payable.response.dto'
 
 export function CreatePayableDoc() {
