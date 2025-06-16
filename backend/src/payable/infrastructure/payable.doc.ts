@@ -23,3 +23,17 @@ export function CreatePayableDoc() {
     }),
   )
 }
+
+export function FindPayableByIdDoc() {
+  return applyDecorators(
+    ApiResponse({
+      status: 200,
+      description: 'Item found',
+      type: PayableResponseDto,
+    }),
+    ApiResponse({
+      status: 404,
+      description: 'Item not found',
+    }),
+  )
+}
