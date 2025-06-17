@@ -2,9 +2,11 @@ import { applyDecorators } from '@nestjs/common'
 import { ApiParam, ApiResponse } from '@nestjs/swagger'
 import { CreatePayableDto } from '../application/dtos/payable.create.dto'
 import { PayableResponseDto } from './payable.response.dto'
+import { AuthorizedDoc } from '@/shared/infrastructure/docs/doc'
 
 export function CreatePayableDoc() {
   return applyDecorators(
+    AuthorizedDoc(),
     ApiResponse({
       status: 201,
       description: 'Item created',
@@ -26,6 +28,7 @@ export function CreatePayableDoc() {
 
 export function FindPayableByIdDoc() {
   return applyDecorators(
+    AuthorizedDoc(),
     ApiParam({
       name: 'id',
       format: 'uuid',
@@ -44,6 +47,7 @@ export function FindPayableByIdDoc() {
 
 export function UpdatePayableDoc() {
   return applyDecorators(
+    AuthorizedDoc(),
     ApiParam({
       name: 'id',
       format: 'uuid',
@@ -58,6 +62,7 @@ export function UpdatePayableDoc() {
 
 export function DeletePayableDoc() {
   return applyDecorators(
+    AuthorizedDoc(),
     ApiParam({
       name: 'id',
       format: 'uuid',

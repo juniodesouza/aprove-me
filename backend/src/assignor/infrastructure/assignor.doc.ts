@@ -1,9 +1,11 @@
 import { applyDecorators } from '@nestjs/common'
 import { ApiParam, ApiResponse } from '@nestjs/swagger'
 import { AssignorResponseDto } from './assignor.response.dto'
+import { AuthorizedDoc } from '@/shared/infrastructure/docs/doc'
 
 export function CreateAssignorDoc() {
   return applyDecorators(
+    AuthorizedDoc(),
     ApiResponse({
       status: 201,
       description: 'Item created',
@@ -25,6 +27,7 @@ export function CreateAssignorDoc() {
 
 export function FindAssignorByIdDoc() {
   return applyDecorators(
+    AuthorizedDoc(),
     ApiParam({
       name: 'id',
       format: 'uuid',
@@ -43,6 +46,7 @@ export function FindAssignorByIdDoc() {
 
 export function UpdateAssignorDoc() {
   return applyDecorators(
+    AuthorizedDoc(),
     ApiParam({
       name: 'id',
       format: 'uuid',
@@ -57,6 +61,7 @@ export function UpdateAssignorDoc() {
 
 export function DeleteAssignorDoc() {
   return applyDecorators(
+    AuthorizedDoc(),
     ApiParam({
       name: 'id',
       format: 'uuid',
