@@ -7,6 +7,8 @@ import { DeleteUserUseCase } from './application/usecases/user.delete.usecase'
 import { FindUserByIdUseCase } from './application/usecases/user.find-by-id.usecase'
 import { UpdateUserUseCase } from './application/usecases/user.update.usecase'
 import { UserController } from './infrastructure/user.controller'
+import { HashProvider } from '@/shared/application/providers/hash.provider'
+import { BcryptHashAdapter } from '@/shared/infrastructure/adapters/bcrypt.adapter'
 
 @Module({
   imports: [],
@@ -16,6 +18,10 @@ import { UserController } from './infrastructure/user.controller'
     {
       provide: UserRepository,
       useClass: UserPrismaRepository,
+    },
+    {
+      provide: HashProvider,
+      useClass: BcryptHashAdapter,
     },
     CreateUserUseCase,
     DeleteUserUseCase,
