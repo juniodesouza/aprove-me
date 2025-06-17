@@ -6,6 +6,7 @@ Este repositório contém uma API desenvolvida em [NestJS](https://nestjs.com/) 
 
 1. Instale o Node.js na versão 20 ou superior.
 2. Copie o arquivo `backend/.env.example` para `backend/.env` e preencha as variáveis necessárias.
+3. Crie a pasta `database` na raiz do projeto para armazenar o arquivo `dev.db` quando usar Docker.
 
 ## Como instalar as dependências
 
@@ -38,7 +39,8 @@ docker build -t aprove-me-api .
 Para iniciar a aplicação com o Docker Compose:
 
 ```bash
-docker compose up
+docker compose up -d
+docker compose exec api npx prisma migrate deploy
 ```
 
 A aplicação ficará disponível em `http://localhost:3000/integrations`.
