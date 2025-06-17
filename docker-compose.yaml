@@ -1,0 +1,21 @@
+services:
+  backend:
+    container_name: aproveme_backend
+    image: aproveme_backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      APP_PORT: 3000
+      NODE_ENV: production
+      DATABASE_URL: file:/app/database/preview.db
+      JWT_SECRET: "789456123"
+    volumes:
+      - ./backend/database:/app/database
+    networks:
+      - aproveme-network
+
+networks:
+  aproveme-network:

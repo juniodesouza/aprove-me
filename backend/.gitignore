@@ -38,4 +38,5 @@ lerna-debug.log*
 .env
 .env.test
 
-/database
+/database/*
+!/database/.gitkeep
