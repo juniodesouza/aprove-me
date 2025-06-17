@@ -1,4 +1,4 @@
-# Aprove-me
+# Aprova-me
 
 Este projeto utiliza NestJS com Prisma e um banco SQLite para servir a API. A seguir estão os passos para iniciar o ambiente de desenvolvimento.
 
