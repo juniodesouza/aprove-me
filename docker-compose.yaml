@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  api:
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      NODE_ENV: production
+      APP_PORT: 3000
+      DATABASE_URL: file:../database/dev.db
+      JWT_SECRET: changeme
+    volumes:
+      - ./database:/app/database
+
