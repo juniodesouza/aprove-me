@@ -43,9 +43,9 @@ export default function AppSidebar() {
                   <SidebarMenu>
                      <SidebarMenuItem>
                         <Link to="/app/payables">
-                           <SidebarMenuButton tooltip="Recebíveis">
+                           <SidebarMenuButton tooltip="Pagáveis">
                               <DollarSign />
-                              <span>Recebíveis</span>
+                              <span>Pagáveis</span>
                            </SidebarMenuButton>
                         </Link>
                      </SidebarMenuItem>
