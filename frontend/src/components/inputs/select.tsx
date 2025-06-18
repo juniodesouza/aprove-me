@@ -9,7 +9,7 @@ import {
 import { ControllerRenderProps } from 'react-hook-form'
 
 interface InputSelectProps {
-   itens: { value: string | number; label: string }[]
+   itens: { value: string; label: string }[]
    props: ControllerRenderProps<{ [x: string]: string | null }, string>
 }
 

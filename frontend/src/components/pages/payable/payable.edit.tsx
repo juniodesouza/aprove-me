@@ -110,13 +110,11 @@ export function PayableEdit() {
    }
 
    useEffect(() => {
-      fetchAssignors()
-   }, [])
-
-   useEffect(() => {
-      if (id) {
-         fetchData(id)
-      }
+      fetchAssignors().then(() => {
+         if (id) {
+            fetchData(id).then(() => {})
+         }
+      })
    }, [id])
 
    return (
