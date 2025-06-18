@@ -6,8 +6,15 @@ import { Toaster } from './components/ui/toaster'
 import { ThemeProvider } from './contexts/theme'
 import AppRouter from './routes'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+   defaultOptions: {
+      queries: {
+         refetchOnWindowFocus: false,
+      },
+   },
+})
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
    // <React.StrictMode>
@@ -16,7 +23,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
          <AppRouter />
          <Toaster />
       </ThemeProvider>
+      <ReactQueryDevtools />
    </QueryClientProvider>
-
    // </React.StrictMode>
 )

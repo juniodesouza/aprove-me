@@ -3,15 +3,16 @@ import { Page } from '@/components/layout/page'
 import { toast } from '@/hooks/use-toast'
 import { handleApiError } from '@/helpers/api-error-handler'
 import { FormPayableValues, PayableForm } from './payable-form'
-import { useFetchAssignors } from '@/hooks/api/useFetchAssignors'
-import { useFetchPayable } from '@/hooks/api/useFetchPayable'
-import { useUpsertPayable } from '@/hooks/api/useUpsertPayable'
+import { useFetchPayable } from '@/hooks/queries/useFetchPayable'
+import { useUpsertPayable } from '@/hooks/mutations/useUpsertPayable'
+import { useFetchAssignorsForPayable } from '@/hooks/queries/useFetchAssignorsForPayable'
 
 export function PayableEdit() {
    const navigate = useNavigate()
    const { id } = useParams()
 
-   const { data: assignors, isLoading: loadingAssignors } = useFetchAssignors()
+   const { data: assignors, isLoading: loadingAssignors } =
+      useFetchAssignorsForPayable()
    const { data: payable, isLoading: loadingPayable } = useFetchPayable(id!)
    const upsertMutation = useUpsertPayable(id)
 

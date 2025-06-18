@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
 import { api } from '@/services/api.service'
 
-export const useFetchAssignors = () => {
+export const useFetchAssignorsForPayable = () => {
    return useQuery({
-      queryKey: ['assignors'],
+      queryKey: ['assignors-payable'],
       queryFn: async () => {
          const response = await api.get('assignor')
          return response.data.map((item: { id: string; name: string }) => ({
