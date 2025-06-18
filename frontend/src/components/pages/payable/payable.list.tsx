@@ -10,8 +10,13 @@ import {
 } from '@/components/ui/table'
 import { Page } from '@/components/layout/page'
 import { Button } from '@/components/ui/button'
+import { useFetchPayables } from '@/hooks/queries/useFetchPayables'
+import { useFetchAssignors } from '@/hooks/queries/useFetchAssignors'
+import { format } from 'date-fns'
 
 export function PayableList() {
+   const { data: payables, isLoading: loadingPayables } = useFetchPayables()
+   const { data: assignors, isLoading: loadingAssignors } = useFetchAssignors()
    const createNewRegister = (
       <Button className="px-4" asChild>
          <Link to={`/app/payables/create`}>
@@ -20,6 +25,10 @@ export function PayableList() {
          </Link>
       </Button>
    )
+
+   if (loadingPayables || loadingAssignors) {
+      return <div>Carregando...</div>
+   }
 
    return (
       <Page title="Pagáveis" actions={createNewRegister}>
@@ -35,30 +44,41 @@ export function PayableList() {
                   </TableRow>
                </TableHeader>
                <TableBody>
-                  <TableRow className="even:bg-muted/40">
-                     <TableCell>1</TableCell>
-                     <TableCell>01/01/2023</TableCell>
-                     <TableCell>R$ 100,00</TableCell>
-                     <TableCell>Empresa XYZ</TableCell>
-                     <TableCell className="flex justify-center">
-                        <Button
-                           variant="ghost"
-                           size="icon"
-                           className="h-5 w-8"
-                           onClick={() => {}}
-                        >
-                           <Pencil />
-                        </Button>
-                        <Button
-                           variant="ghost"
-                           size="icon"
-                           className="h-5 w-8"
-                           onClick={() => {}}
-                        >
-                           <Trash2 className="text-destructive" />
-                        </Button>
-                     </TableCell>
-                  </TableRow>
+                  {payables?.map((payable) => (
+                     <TableRow key={payable.id} className="even:bg-muted/40">
+                        <TableCell>{payable.id}</TableCell>
+                        <TableCell>
+                           {format(payable.emissionDate, 'dd/MM/yyyy')}
+                        </TableCell>
+                        <TableCell>
+                           {new Intl.NumberFormat('pt-BR', {
+                              style: 'currency',
+                              currency: 'BRL',
+                           }).format(payable.value / 100)}
+                        </TableCell>
+                        <TableCell>
+                           {assignors?.find((a) => a.id === payable.assignorId)?.name}
+                        </TableCell>
+                        <TableCell className="flex justify-center">
+                           <Button
+                              variant="ghost"
+                              size="icon"
+                              className="h-5 w-8"
+                              onClick={() => {}}
+                           >
+                              <Pencil />
+                           </Button>
+                           <Button
+                              variant="ghost"
+                              size="icon"
+                              className="h-5 w-8"
+                              onClick={() => {}}
+                           >
+                              <Trash2 className="text-destructive" />
+                           </Button>
+                        </TableCell>
+                     </TableRow>
+                  ))}
                </TableBody>
             </Table>
          </div>
