@@ -8,6 +8,7 @@ import { AssignorModule } from '@/assignor/assignor.module'
 import { FindPayableByIdUseCase } from './application/usecases/payable.find-by-id.usecase'
 import { UpdatePayableUseCase } from './application/usecases/payable.update.usecase'
 import { DeletePayableUseCase } from './application/usecases/payable.delete.usecase'
+import { FindAllPayablesUseCase } from './application/usecases/payable.find-all.usecase'
 
 @Module({
   imports: [AssignorModule],
@@ -20,6 +21,7 @@ import { DeletePayableUseCase } from './application/usecases/payable.delete.usec
     },
     CreatePayableUseCase,
     FindPayableByIdUseCase,
+    FindAllPayablesUseCase,
     UpdatePayableUseCase,
     DeletePayableUseCase,
   ],

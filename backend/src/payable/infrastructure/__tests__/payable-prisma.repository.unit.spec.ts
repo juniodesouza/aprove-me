@@ -11,6 +11,7 @@ describe('PayablePrismaRepository unit tests', () => {
     payable: {
       create: jest.fn().mockRejectedValue(new Error()),
       findUnique: jest.fn().mockRejectedValue(new Error()),
+      findMany: jest.fn().mockRejectedValue(new Error()),
       update: jest.fn().mockRejectedValue(new Error()),
       delete: jest.fn().mockRejectedValue(new Error()),
     },
@@ -51,5 +52,9 @@ describe('PayablePrismaRepository unit tests', () => {
 
   it('should call handlePrismaError when delete fails', async () => {
     await expect(sut.delete('fake-id')).rejects.toThrow(Error)
+  })
+
+  it('should call handlePrismaError when findAll fails', async () => {
+    await expect(sut.findAll()).rejects.toThrow(Error)
   })
 })

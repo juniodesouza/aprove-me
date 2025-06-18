@@ -58,4 +58,13 @@ export class PayablePrismaRepository implements PayableRepository {
       handlePrismaError(error)
     }
   }
+
+  async findAll(): Promise<PayableEntity[]> {
+    try {
+      const found = await this.prisma.payable.findMany()
+      return found.map((item) => new PayableEntity(item))
+    } catch (error) {
+      handlePrismaError(error)
+    }
+  }
 }

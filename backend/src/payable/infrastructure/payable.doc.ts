@@ -77,3 +77,15 @@ export function DeletePayableDoc() {
     }),
   )
 }
+
+export function FindAllPayablesDoc() {
+  return applyDecorators(
+    AuthorizedDoc(),
+    ApiResponse({
+      status: 200,
+      description: 'List of items',
+      type: PayableResponseDto,
+      isArray: true,
+    }),
+  )
+}

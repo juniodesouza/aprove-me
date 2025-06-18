@@ -94,4 +94,15 @@ describe('PayablePrismaRepository integration tests', () => {
     const found = await sut.findById(created.props.id)
     expect(found).toBeNull()
   })
+
+  it(`should list payables`, async () => {
+    await prisma.payable.deleteMany({})
+    const entity = new PayableEntity(PayableDataBuilder({ assignorId }))
+    await sut.create(entity)
+
+    const result = await sut.findAll()
+
+    expect(Array.isArray(result)).toBe(true)
+    expect(result[0]).toBeInstanceOf(PayableEntity)
+  })
 })
