@@ -10,6 +10,7 @@ import {
 import {
   CreatePayableDoc,
   DeletePayableDoc,
+  FindAllPayablesDoc,
   FindPayableByIdDoc,
   UpdatePayableDoc,
 } from './payable.doc'
@@ -20,12 +21,14 @@ import { FindPayableByIdUseCase } from '../application/usecases/payable.find-by-
 import { UpdatePayableDto } from '../application/dtos/payable.update.dto'
 import { UpdatePayableUseCase } from '../application/usecases/payable.update.usecase'
 import { DeletePayableUseCase } from '../application/usecases/payable.delete.usecase'
+import { FindAllPayablesUseCase } from '../application/usecases/payable.find-all.usecase'
 
 @Controller('payable')
 export class PayableController {
   constructor(
     private readonly createPayableUseCase: CreatePayableUseCase,
     private readonly findPayableByIdUseCase: FindPayableByIdUseCase,
+    private readonly findAllPayablesUseCase: FindAllPayablesUseCase,
     private readonly updatePayableUseCase: UpdatePayableUseCase,
     private readonly deletePayableUseCase: DeletePayableUseCase,
   ) {}
@@ -37,6 +40,13 @@ export class PayableController {
       await this.createPayableUseCase.execute(createPayableDto)
 
     return PayablePresenter.toHttp(createdPayable)
+  }
+
+  @FindAllPayablesDoc()
+  @Get()
+  async findAll() {
+    const payables = await this.findAllPayablesUseCase.execute()
+    return payables.map((p) => PayablePresenter.toHttp(p))
   }
 
   @FindPayableByIdDoc()

@@ -5,6 +5,7 @@ import { CreatePayableUseCase } from '@/payable/application/usecases/payable.cre
 import { FindPayableByIdUseCase } from '@/payable/application/usecases/payable.find-by-id.usecase'
 import { UpdatePayableUseCase } from '@/payable/application/usecases/payable.update.usecase'
 import { DeletePayableUseCase } from '@/payable/application/usecases/payable.delete.usecase'
+import { FindAllPayablesUseCase } from '@/payable/application/usecases/payable.find-all.usecase'
 import { PayableEntity } from '@/payable/domain/payable.entity'
 import { PayableDataBuilder } from '@/payable/domain/__tests__/payable.data-builder'
 import { CreatePayableDto } from '@/payable/application/dtos/payable.create.dto'
@@ -15,6 +16,7 @@ describe('PayableController unit tests', () => {
   let sut: PayableController
   let createPayableUseCase: jest.Mocked<CreatePayableUseCase>
   let findPayableByIdUseCase: jest.Mocked<FindPayableByIdUseCase>
+  let findAllPayablesUseCase: jest.Mocked<FindAllPayablesUseCase>
   let updatePayableUseCase: jest.Mocked<UpdatePayableUseCase>
   let deletePayableUseCase: jest.Mocked<DeletePayableUseCase>
 
@@ -30,6 +32,12 @@ describe('PayableController unit tests', () => {
         },
         {
           provide: FindPayableByIdUseCase,
+          useValue: {
+            execute: jest.fn(),
+          },
+        },
+        {
+          provide: FindAllPayablesUseCase,
           useValue: {
             execute: jest.fn(),
           },
@@ -52,6 +60,7 @@ describe('PayableController unit tests', () => {
     sut = module.get<PayableController>(PayableController)
     createPayableUseCase = module.get(CreatePayableUseCase)
     findPayableByIdUseCase = module.get(FindPayableByIdUseCase)
+    findAllPayablesUseCase = module.get(FindAllPayablesUseCase)
     updatePayableUseCase = module.get(UpdatePayableUseCase)
     deletePayableUseCase = module.get(DeletePayableUseCase)
   })
@@ -74,6 +83,16 @@ describe('PayableController unit tests', () => {
     expect(createPayableUseCase.execute).toHaveBeenCalledWith(createPayableDto)
     expect(createPayableUseCase.execute).toHaveBeenCalledTimes(1)
     expect(result).toBeInstanceOf(PayableResponseDto)
+  })
+
+  it('should list payables successfully', async () => {
+    const entity = new PayableEntity(PayableDataBuilder())
+    findAllPayablesUseCase.execute.mockResolvedValue([entity])
+
+    const result = await sut.findAll()
+
+    expect(findAllPayablesUseCase.execute).toHaveBeenCalledTimes(1)
+    expect(result[0]).toBeInstanceOf(PayableResponseDto)
   })
 
   it('should find a payable by id successfully', async () => {

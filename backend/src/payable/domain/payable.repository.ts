@@ -5,4 +5,5 @@ export abstract class PayableRepository {
   abstract findById(id: string): Promise<PayableEntity | null>
   abstract update(payable: PayableEntity): Promise<PayableEntity>
   abstract delete(id: string): Promise<void>
+  abstract findAll(): Promise<PayableEntity[]>
 }
