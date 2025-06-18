@@ -9,23 +9,9 @@ import {
 } from '@/components/ui/table'
 import { Button } from '@/components/ui/button'
 import { format } from 'date-fns'
-
-interface Payable {
-   id: string
-   emissionDate: Date
-   value: number
-   assignorId: string
-}
-
-interface Assignor {
-   id: string
-   name: string
-}
-
-interface PayableTableProps {
-   payables?: Payable[]
-   assignors?: Assignor[]
-}
+import type { Payable } from '@/types/payable'
+import type { Assignor } from '@/types/assignor'
+import type { PayableTableProps } from '@/types/payable-table'
 
 export function PayableTable({
    payables = [],
