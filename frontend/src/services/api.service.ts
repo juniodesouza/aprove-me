@@ -14,10 +14,6 @@ function getAPIClient(): AxiosInstance {
       const { accessToken } = AuthService.getTokens()
 
       if (accessToken) {
-         if (AuthService.isTokenExpired(accessToken)) {
-            await AuthService.logout()
-            return config
-         }
          config.headers['Authorization'] = `Bearer ${accessToken}`
       }
 
