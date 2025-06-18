@@ -6,6 +6,7 @@ import { CreateAssignorUseCase } from './application/usecases/assignor.create.us
 import { DeleteAssignorUseCase } from './application/usecases/assignor.delete.usecase'
 import { FindAssignorByIdUseCase } from './application/usecases/assignor.find-by-id.usecase'
 import { UpdateAssignorUseCase } from './application/usecases/assignor.update.usecase'
+import { FindAllAssignorsUseCase } from './application/usecases/assignor.find-all.usecase'
 import { AssignorController } from './infrastructure/assignor.controller'
 
 @Module({
@@ -19,6 +20,7 @@ import { AssignorController } from './infrastructure/assignor.controller'
     },
     CreateAssignorUseCase,
     DeleteAssignorUseCase,
+    FindAllAssignorsUseCase,
     FindAssignorByIdUseCase,
     UpdateAssignorUseCase,
   ],

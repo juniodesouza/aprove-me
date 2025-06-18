@@ -11,6 +11,7 @@ describe('AssignorPrismaRepository unit tests', () => {
     assignor: {
       create: jest.fn().mockRejectedValue(new Error()),
       findUnique: jest.fn().mockRejectedValue(new Error()),
+      findMany: jest.fn().mockRejectedValue(new Error()),
       update: jest.fn().mockRejectedValue(new Error()),
       delete: jest.fn().mockRejectedValue(new Error()),
     },
@@ -55,5 +56,9 @@ describe('AssignorPrismaRepository unit tests', () => {
 
   it('should call handlePrismaError when find by document fails', async () => {
     await expect(sut.findByDocument('fake-document')).rejects.toThrow(Error)
+  })
+
+  it('should call handlePrismaError when findAll fails', async () => {
+    await expect(sut.findAll()).rejects.toThrow(Error)
   })
 })

@@ -89,6 +89,17 @@ describe('AssignorPrismaRepository integration tests', () => {
     expect(found.props.document).toBe(created.props.document)
   })
 
+  it(`should list assignors`, async () => {
+    await prisma.assignor.deleteMany({})
+    const entity = new AssignorEntity(AssignorDataBuilder())
+    await sut.create(entity)
+
+    const result = await sut.findAll()
+
+    expect(Array.isArray(result)).toBe(true)
+    expect(result[0]).toBeInstanceOf(AssignorEntity)
+  })
+
   it(`should return null when document does not exist`, async () => {
     const notFound = await sut.findByDocument('non-existing-document')
     expect(notFound).toBeNull()

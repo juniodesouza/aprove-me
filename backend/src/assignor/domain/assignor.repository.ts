@@ -6,4 +6,5 @@ export abstract class AssignorRepository {
   abstract update(assignor: AssignorEntity): Promise<AssignorEntity>
   abstract delete(id: string): Promise<void>
   abstract findByDocument(document: string): Promise<AssignorEntity | null>
+  abstract findAll(): Promise<AssignorEntity[]>
 }
