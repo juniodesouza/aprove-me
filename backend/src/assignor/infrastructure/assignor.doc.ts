@@ -76,3 +76,15 @@ export function DeleteAssignorDoc() {
     }),
   )
 }
+
+export function FindAllAssignorsDoc() {
+  return applyDecorators(
+    AuthorizedDoc(),
+    ApiResponse({
+      status: 200,
+      description: 'List of items',
+      type: AssignorResponseDto,
+      isArray: true,
+    }),
+  )
+}

@@ -72,4 +72,13 @@ export class AssignorPrismaRepository implements AssignorRepository {
       handlePrismaError(error)
     }
   }
+
+  async findAll(): Promise<AssignorEntity[]> {
+    try {
+      const found = await this.prisma.assignor.findMany()
+      return found.map((item) => new AssignorEntity(item))
+    } catch (error) {
+      handlePrismaError(error)
+    }
+  }
 }

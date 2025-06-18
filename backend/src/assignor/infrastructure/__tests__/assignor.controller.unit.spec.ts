@@ -5,6 +5,7 @@ import { CreateAssignorUseCase } from '@/assignor/application/usecases/assignor.
 import { FindAssignorByIdUseCase } from '@/assignor/application/usecases/assignor.find-by-id.usecase'
 import { UpdateAssignorUseCase } from '@/assignor/application/usecases/assignor.update.usecase'
 import { DeleteAssignorUseCase } from '@/assignor/application/usecases/assignor.delete.usecase'
+import { FindAllAssignorsUseCase } from '@/assignor/application/usecases/assignor.find-all.usecase'
 import { AssignorEntity } from '@/assignor/domain/assignor.entity'
 import { AssignorDataBuilder } from '@/assignor/domain/__tests__/assignor.data-builder'
 import { CreateAssignorDto } from '@/assignor/application/dtos/assignor.create.dto'
@@ -15,6 +16,7 @@ describe('AssignorController unit tests', () => {
   let sut: AssignorController
   let createAssignorUseCase: jest.Mocked<CreateAssignorUseCase>
   let findAssignorByIdUseCase: jest.Mocked<FindAssignorByIdUseCase>
+  let findAllAssignorsUseCase: jest.Mocked<FindAllAssignorsUseCase>
   let updateAssignorUseCase: jest.Mocked<UpdateAssignorUseCase>
   let deleteAssignorUseCase: jest.Mocked<DeleteAssignorUseCase>
 
@@ -30,6 +32,12 @@ describe('AssignorController unit tests', () => {
         },
         {
           provide: FindAssignorByIdUseCase,
+          useValue: {
+            execute: jest.fn(),
+          },
+        },
+        {
+          provide: FindAllAssignorsUseCase,
           useValue: {
             execute: jest.fn(),
           },
@@ -52,6 +60,7 @@ describe('AssignorController unit tests', () => {
     sut = module.get<AssignorController>(AssignorController)
     createAssignorUseCase = module.get(CreateAssignorUseCase)
     findAssignorByIdUseCase = module.get(FindAssignorByIdUseCase)
+    findAllAssignorsUseCase = module.get(FindAllAssignorsUseCase)
     updateAssignorUseCase = module.get(UpdateAssignorUseCase)
     deleteAssignorUseCase = module.get(DeleteAssignorUseCase)
   })
@@ -74,6 +83,16 @@ describe('AssignorController unit tests', () => {
     expect(createAssignorUseCase.execute).toHaveBeenCalledWith(createCarDto)
     expect(createAssignorUseCase.execute).toHaveBeenCalledTimes(1)
     expect(result).toBeInstanceOf(AssignorResponseDto)
+  })
+
+  it('should list assignors successfully', async () => {
+    const entity = new AssignorEntity(AssignorDataBuilder())
+    findAllAssignorsUseCase.execute.mockResolvedValue([entity])
+
+    const result = await sut.findAll()
+
+    expect(findAllAssignorsUseCase.execute).toHaveBeenCalledTimes(1)
+    expect(result[0]).toBeInstanceOf(AssignorResponseDto)
   })
 
   it('should find a assignor by id successfully', async () => {

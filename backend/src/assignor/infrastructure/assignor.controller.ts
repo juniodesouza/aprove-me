@@ -11,10 +11,12 @@ import { CreateAssignorUseCase } from '../application/usecases/assignor.create.u
 import { FindAssignorByIdUseCase } from '../application/usecases/assignor.find-by-id.usecase'
 import { UpdateAssignorUseCase } from '../application/usecases/assignor.update.usecase'
 import { DeleteAssignorUseCase } from '../application/usecases/assignor.delete.usecase'
+import { FindAllAssignorsUseCase } from '../application/usecases/assignor.find-all.usecase'
 import { CreateAssignorDto } from '../application/dtos/assignor.create.dto'
 import {
   CreateAssignorDoc,
   DeleteAssignorDoc,
+  FindAllAssignorsDoc,
   FindAssignorByIdDoc,
   UpdateAssignorDoc,
 } from './assignor.doc'
@@ -26,6 +28,7 @@ export class AssignorController {
   constructor(
     private readonly createAssignorUseCase: CreateAssignorUseCase,
     private readonly findAssignorByIdUseCase: FindAssignorByIdUseCase,
+    private readonly findAllAssignorsUseCase: FindAllAssignorsUseCase,
     private readonly updateAssignorUseCase: UpdateAssignorUseCase,
     private readonly deleteAssignorUseCase: DeleteAssignorUseCase,
   ) {}
@@ -37,6 +40,13 @@ export class AssignorController {
       await this.createAssignorUseCase.execute(createAssignorDto)
 
     return AssignorPresenter.toHttp(createdAssignor)
+  }
+
+  @FindAllAssignorsDoc()
+  @Get()
+  async findAll() {
+    const assignors = await this.findAllAssignorsUseCase.execute()
+    return assignors.map((a) => AssignorPresenter.toHttp(a))
   }
 
   @FindAssignorByIdDoc()
