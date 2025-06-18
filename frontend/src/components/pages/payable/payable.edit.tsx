@@ -19,7 +19,7 @@ import { toast } from '@/hooks/use-toast'
 import { api } from '@/services/api.service'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { LoaderCircle } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
 import { z } from 'zod'
@@ -38,10 +38,7 @@ export function PayableEdit() {
    const { id } = useParams()
 
    const [isLoading, setIsLoading] = useState(false)
-   const [assignors, setAssignors] = useState<selectOptions>([
-      { value: '32277cd0-d46a-4515-b0a2-7bd857385e5c', label: 'Cedente 1' },
-      { value: '793a7625-3054-4b48-a5c8-04d4480b7f63', label: 'Cedente 2' },
-   ])
+   const [assignors, setAssignors] = useState<selectOptions>([])
 
    const form = useForm<FormValues>({
       resolver: zodResolver(formSchema),
@@ -80,6 +77,47 @@ export function PayableEdit() {
    const onCancel = () => {
       navigate(`/app/payables`)
    }
+
+   const fetchAssignors = async () => {
+      try {
+         const response = await api.get('assignor')
+         const data = response.data.map((item: any) => ({
+            value: item.id,
+            label: item.name,
+         }))
+         setAssignors(data)
+      } catch (error) {
+         handleApiError(error)
+      }
+   }
+
+   const fetchData = async (id: string) => {
+      try {
+         const response = await api.get(`payable/${id}`)
+         const data = response.data
+
+         const [year, month, day] = data.emissionDate.split('T')[0].split('-')
+         const emissionDate = new Date(year, month - 1, day)
+
+         form.reset({
+            value: data.value,
+            emissionDate: emissionDate,
+            assignorId: data.assignorId,
+         })
+      } catch (error) {
+         handleApiError(error)
+      }
+   }
+
+   useEffect(() => {
+      fetchAssignors()
+   }, [])
+
+   useEffect(() => {
+      if (id) {
+         fetchData(id)
+      }
+   }, [id])
 
    return (
       <Page title="Pagáveis">

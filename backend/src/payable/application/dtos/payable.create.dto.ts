@@ -4,10 +4,9 @@ import { IsDate, IsNotEmpty, IsNumber, IsUUID } from 'class-validator'
 
 export class CreatePayableDto {
   @ApiProperty({
-    example: 1250.35,
+    example: 125035,
   })
   @Expose()
-  @Transform(({ value }) => value * 100)
   @IsNumber()
   @IsNotEmpty()
   value: number

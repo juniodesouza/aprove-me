@@ -8,7 +8,7 @@ export class PayablePresenter {
       PayableResponseDto,
       {
         ...payableEntity.props,
-        value: payableEntity.props.value / 100,
+        value: payableEntity.props.value,
       },
       {
         excludeExtraneousValues: true,
