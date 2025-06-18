@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { api } from '@/services/api.service'
-import { FormPayableValues } from '../payable-form'
+import { FormPayableValues } from '@/components/pages/payable/payable-form'
 
 export const useUpsertPayable = (id?: string) => {
    const queryClient = useQueryClient()
