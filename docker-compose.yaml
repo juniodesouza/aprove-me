@@ -1,7 +1,7 @@
 services:
   backend:
-    container_name: aproveme_backend
-    image: aproveme_backend
+    container_name: aprovame_backend
+    image: aprovame_backend
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -15,7 +15,19 @@ services:
     volumes:
       - ./backend/database:/app/database
     networks:
-      - aproveme-network
+      - aprovame-network
+
+  frontend:
+    container_name: app_frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    environment:
+      NODE_ENV: production
+    networks:
+      - aprovame-network
 
 networks:
-  aproveme-network:
+  aprovame-network:
