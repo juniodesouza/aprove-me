@@ -3,7 +3,6 @@ import { PlusIcon } from 'lucide-react'
 import { Page } from '@/components/layout/page'
 import { Button } from '@/components/ui/button'
 import { useFetchPayables } from '@/hooks/queries/useFetchPayables'
-import { useFetchAssignors } from '@/hooks/queries/useFetchAssignors'
 import { PayableTable } from './payable-table'
 import { Payable } from '@/types/payable'
 import DeleteAlertDialog from '@/components/custom/alert-delete'
@@ -11,18 +10,21 @@ import { useState } from 'react'
 import { useDeletePayable } from '@/hooks/mutations/useDeletePayable'
 import { handleApiError } from '@/helpers/api-error-handler'
 import { toast } from '@/hooks/use-toast'
+import PayableView from './payable-view'
 
 export function PayableList() {
    const navigate = useNavigate()
 
    const [openAlert, setOpenAlert] = useState<boolean>(false)
+   const [openView, setOpenView] = useState<boolean>(false)
+
    const [id, setId] = useState<string>('')
+   const [payable, setPayable] = useState<Payable | null>(null)
 
    const { data: payables, isLoading: loadingPayables } = useFetchPayables()
-   const { data: assignors, isLoading: loadingAssignors } = useFetchAssignors()
    const deleteMutation = useDeletePayable()
 
-   if (loadingPayables || loadingAssignors) {
+   if (loadingPayables) {
       return <div>Carregando...</div>
    }
 
@@ -62,19 +64,32 @@ export function PayableList() {
       }
    }
 
+   const handleView = (payable: Payable) => {
+      setPayable(payable)
+      setOpenView(true)
+   }
+
    return (
       <Page title="Pagáveis" actions={createNewRegister}>
          <PayableTable
             onEdit={handleEdit}
             onDelete={handleConfirmDelete}
+            onView={handleView}
             payables={payables}
-            assignors={assignors}
          />
          <DeleteAlertDialog
             open={openAlert}
             onOpenChange={setOpenAlert}
             onConfirm={handleDelete}
          />
+
+         {payable && (
+            <PayableView
+               open={openView}
+               onOpenChange={setOpenView}
+               payable={payable}
+            />
+         )}
       </Page>
    )
 }

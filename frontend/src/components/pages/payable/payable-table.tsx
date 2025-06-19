@@ -1,4 +1,4 @@
-import { Pencil, Trash2 } from 'lucide-react'
+import { EyeIcon, Pencil, Trash2 } from 'lucide-react'
 import {
    Table,
    TableBody,
@@ -14,9 +14,9 @@ import CustomTooltip from '@/components/custom/custom-tooltip'
 
 export function PayableTable({
    payables = [],
-   assignors = [],
    onEdit,
    onDelete,
+   onView,
 }: PayableTableProps) {
    return (
       <div className="my-3 rounded-md border">
@@ -24,9 +24,9 @@ export function PayableTable({
             <TableHeader>
                <TableRow className="bg-muted/40">
                   <TableHead>Id</TableHead>
-                  <TableHead>Data de emissão</TableHead>
-                  <TableHead>Valor</TableHead>
-                  <TableHead>Cedente</TableHead>
+                  <TableHead className="text-center">Data de emissão</TableHead>
+                  <TableHead className="text-center">Valor</TableHead>
+                  <TableHead className="text-center">Visualizar</TableHead>
                   <TableHead className="w-[8%] text-center">Ações</TableHead>
                </TableRow>
             </TableHeader>
@@ -38,20 +38,26 @@ export function PayableTable({
                            <span>{payable.id}</span>
                         </CustomTooltip>
                      </TableCell>
-                     <TableCell>
+                     <TableCell className="text-center">
                         {format(payable.emissionDate, 'dd/MM/yyyy')}
                      </TableCell>
-                     <TableCell>
+                     <TableCell className="text-center">
                         {new Intl.NumberFormat('pt-BR', {
                            style: 'currency',
                            currency: 'BRL',
                         }).format(payable.value / 100)}
                      </TableCell>
-                     <TableCell>
-                        {
-                           assignors.find((a) => a.id === payable.assignorId)
-                              ?.name
-                        }
+                     <TableCell className="text-center">
+                        <CustomTooltip title="Visualizar">
+                           <Button
+                              variant="ghost"
+                              size="icon"
+                              className="h-5 w-8"
+                              onClick={() => onView(payable)}
+                           >
+                              <EyeIcon />
+                           </Button>
+                        </CustomTooltip>
                      </TableCell>
                      <TableCell className="flex justify-center">
                         <CustomTooltip title="Editar">

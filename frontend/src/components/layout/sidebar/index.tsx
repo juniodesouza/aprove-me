@@ -1,9 +1,4 @@
-import {
-   ChartNoAxesCombinedIcon,
-   DollarSign,
-   UserCheck2,
-   UsersIcon,
-} from 'lucide-react'
+import { ChartNoAxesCombinedIcon, DollarSign, UserCheck2 } from 'lucide-react'
 import {
    Sidebar,
    SidebarContent,
@@ -54,14 +49,6 @@ export default function AppSidebar() {
                            <SidebarMenuButton tooltip="Cedente">
                               <UserCheck2 />
                               <span>Cedentes</span>
-                           </SidebarMenuButton>
-                        </Link>
-                     </SidebarMenuItem>
-                     <SidebarMenuItem>
-                        <Link to="/app/users">
-                           <SidebarMenuButton tooltip="Usuários">
-                              <UsersIcon />
-                              <span>Usuários</span>
                            </SidebarMenuButton>
                         </Link>
                      </SidebarMenuItem>

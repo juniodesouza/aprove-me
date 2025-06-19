@@ -6,4 +6,5 @@ export interface PayableTableProps {
    assignors?: Assignor[]
    onEdit: (payable: Payable) => void
    onDelete: (payable: Payable) => void
+   onView: (payable: Payable) => void
 }
