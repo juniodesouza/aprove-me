@@ -23,7 +23,7 @@ export function PayableTable({
          <Table>
             <TableHeader>
                <TableRow className="bg-muted/40">
-                  <TableHead className="w-[35%]">Id</TableHead>
+                  <TableHead>Id</TableHead>
                   <TableHead>Data de emissão</TableHead>
                   <TableHead>Valor</TableHead>
                   <TableHead>Cedente</TableHead>
@@ -31,9 +31,13 @@ export function PayableTable({
                </TableRow>
             </TableHeader>
             <TableBody>
-               {payables.map((payable) => (
-                  <TableRow key={payable.id} className="even:bg-muted/40">
-                     <TableCell>{payable.id}</TableCell>
+               {payables.map((payable, key) => (
+                  <TableRow key={key} className="even:bg-muted/40">
+                     <TableCell className="max-w-[150px] truncate">
+                        <CustomTooltip title={payable.id}>
+                           <span>{payable.id}</span>
+                        </CustomTooltip>
+                     </TableCell>
                      <TableCell>
                         {format(payable.emissionDate, 'dd/MM/yyyy')}
                      </TableCell>

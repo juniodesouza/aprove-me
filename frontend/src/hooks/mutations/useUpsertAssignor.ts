@@ -1,12 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { api } from '@/services/api.service'
-
-export type FormAssignorValues = {
-   document: string
-   email: string
-   phone: string
-   name: string
-}
+import { FormAssignorValues } from '@/components/pages/assignor/assignor-form'
 
 export const useUpsertAssignor = (id?: string) => {
    const queryClient = useQueryClient()

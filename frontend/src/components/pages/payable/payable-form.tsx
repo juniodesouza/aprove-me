@@ -25,6 +25,7 @@ const formSchema = z.object({
 })
 
 export type FormPayableValues = z.infer<typeof formSchema>
+
 type Props = {
    initialData?: FormPayableValues
    assignors: { value: string; label: string }[]
