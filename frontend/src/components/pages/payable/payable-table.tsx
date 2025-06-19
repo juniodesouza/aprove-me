@@ -9,13 +9,14 @@ import {
 } from '@/components/ui/table'
 import { Button } from '@/components/ui/button'
 import { format } from 'date-fns'
-import type { Payable } from '@/types/payable'
-import type { Assignor } from '@/types/assignor'
 import type { PayableTableProps } from '@/types/payable-table'
+import CustomTooltip from '@/components/custom/custom-tooltip'
 
 export function PayableTable({
    payables = [],
    assignors = [],
+   onEdit,
+   onDelete,
 }: PayableTableProps) {
    return (
       <div className="my-3 rounded-md border">
@@ -49,22 +50,26 @@ export function PayableTable({
                         }
                      </TableCell>
                      <TableCell className="flex justify-center">
-                        <Button
-                           variant="ghost"
-                           size="icon"
-                           className="h-5 w-8"
-                           onClick={() => {}}
-                        >
-                           <Pencil />
-                        </Button>
-                        <Button
-                           variant="ghost"
-                           size="icon"
-                           className="h-5 w-8"
-                           onClick={() => {}}
-                        >
-                           <Trash2 className="text-destructive" />
-                        </Button>
+                        <CustomTooltip title="Editar">
+                           <Button
+                              variant="ghost"
+                              size="icon"
+                              className="h-5 w-8"
+                              onClick={() => onEdit(payable)}
+                           >
+                              <Pencil />
+                           </Button>
+                        </CustomTooltip>
+                        <CustomTooltip title="Excluir">
+                           <Button
+                              variant="ghost"
+                              size="icon"
+                              className="h-5 w-8"
+                              onClick={() => onDelete(payable)}
+                           >
+                              <Trash2 className="text-destructive" />
+                           </Button>
+                        </CustomTooltip>
                      </TableCell>
                   </TableRow>
                ))}

@@ -8,7 +8,10 @@ export const useFetchPayable = (id: string) => {
       queryFn: async () => {
          const response = await api.get<Payable>(`payable/${id}`)
          const data = response.data
-         const [year, month, day] = data.emissionDate.split('T')[0].split('-')
+         const [year, month, day] = data.emissionDate
+            .toString()
+            .split('T')[0]
+            .split('-')
          return {
             ...data,
             emissionDate: new Date(

@@ -14,6 +14,9 @@ export const useUpsertPayable = (id?: string) => {
       },
       onSuccess: () => {
          queryClient.invalidateQueries({ queryKey: ['payables'] })
+         if (id) {
+            queryClient.invalidateQueries({ queryKey: ['payable', id] })
+         }
       },
    })
 }
