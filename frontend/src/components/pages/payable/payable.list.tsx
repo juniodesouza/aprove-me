@@ -6,12 +6,21 @@ import { useFetchPayables } from '@/hooks/queries/useFetchPayables'
 import { useFetchAssignors } from '@/hooks/queries/useFetchAssignors'
 import { PayableTable } from './payable-table'
 import { Payable } from '@/types/payable'
+import DeleteAlertDialog from '@/components/custom/alert-delete'
+import { useState } from 'react'
+import { useDeletePayable } from '@/hooks/mutations/useDeletePayable'
+import { handleApiError } from '@/helpers/api-error-handler'
+import { toast } from '@/hooks/use-toast'
 
 export function PayableList() {
    const navigate = useNavigate()
 
+   const [openAlert, setOpenAlert] = useState<boolean>(false)
+   const [id, setId] = useState<string>('')
+
    const { data: payables, isLoading: loadingPayables } = useFetchPayables()
    const { data: assignors, isLoading: loadingAssignors } = useFetchAssignors()
+   const deleteMutation = useDeletePayable()
 
    if (loadingPayables || loadingAssignors) {
       return <div>Carregando...</div>
@@ -30,17 +39,41 @@ export function PayableList() {
       navigate(`/app/payables/${payable.id}/edit`)
    }
 
-   const handleDelete = (payable: Payable) => {
-      console.log(`Deleting payable with id: ${payable.id}`)
+   const handleConfirmDelete = (payable: Payable) => {
+      setId(payable.id)
+      setOpenAlert(true)
+   }
+
+   const handleDelete = async () => {
+      if (!id) return
+
+      try {
+         await deleteMutation.mutateAsync(id)
+
+         setId('')
+         setOpenAlert(false)
+
+         toast({
+            description: 'Registro excluído com sucesso',
+            variant: 'success',
+         })
+      } catch (error) {
+         handleApiError(error)
+      }
    }
 
    return (
       <Page title="Pagáveis" actions={createNewRegister}>
          <PayableTable
             onEdit={handleEdit}
-            onDelete={handleDelete}
+            onDelete={handleConfirmDelete}
             payables={payables}
             assignors={assignors}
+         />
+         <DeleteAlertDialog
+            open={openAlert}
+            onOpenChange={setOpenAlert}
+            onConfirm={handleDelete}
          />
       </Page>
    )
