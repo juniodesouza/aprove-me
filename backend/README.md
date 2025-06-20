@@ -2,6 +2,12 @@
 
 Este projeto utiliza NestJS com Prisma e um banco SQLite para servir a API. A seguir estão os passos para iniciar o ambiente de desenvolvimento.
 
+## Tecnologias
+
+- **NestJS** - framework Node.js baseado em TypeScript para construção de APIs escaláveis.
+- **Prisma** - ORM que simplifica o acesso e a manipulação do banco de dados com tipagem.
+- **SQLite** - banco de dados relacional leve armazenado em um único arquivo, ideal para desenvolvimento e testes.
+
 ## Passos para iniciar o projeto
 
 1. **Clone o repositório**
