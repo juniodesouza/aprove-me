@@ -26,3 +26,12 @@ Usuário e senha de acesso
 
 - **user**: _aprovame_
 - **password**: _aprovame_.
+
+## Instruções específicas para cada aplicação
+
+Se preferir iniciar o backend ou o frontend separadamente, cada diretório possui
+um README com os passos detalhados. Consulte os links abaixo para mais
+informações:
+
+- [Backend](backend/README.md)
+- [Frontend](frontend/README.md)
