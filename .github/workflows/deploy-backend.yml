@@ -1,0 +1,72 @@
+name: Deploy in AWS Elasticbeanstalk
+
+on:
+  push:
+    branches: [main]
+
+env:
+  BRANCH_NAME: main
+  eb_bucket: elasticbeanstalk-sa-east-1-279600712727
+  eb_application: aprovame
+  eb_envname: aprovame-env
+  enviroment: production
+
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - name: Configure node version
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        env:
+          cache-name: ${{ env.BRANCH_NAME }}-${{ github.job }}-node_modules
+        with:
+          path: node_modules
+          key: ${{ env.cache-name }}-${{ hashFiles('**/package.json') }}
+          restore-keys: ${{ env.cache-name }}
+
+      - name: Install dependencies
+        run: |
+          cd ./backend
+          npm install
+
+      - name: Build application
+        run: |
+          cd ./backend
+          npm run build
+
+      - name: Create vars
+        run: |
+          tmz=$(echo `date "+%s"`)
+          echo "eb_version=${{ env.eb_application }}-$tmz" >> $GITHUB_ENV
+          echo "eb_file=${{ env.eb_application }}-$tmz.zip" >> $GITHUB_ENV
+
+      - name: Zip file
+        run: |
+          cd ./backend/dist
+          zip -r ${{ env.eb_file }} . ${{ env.eb_file }}
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: sa-east-1
+
+      - name: Copy to s3
+        run: |
+          cd ./backend/dist
+          aws s3 cp ${{ env.eb_file }} s3://${{ env.eb_bucket }}/${{ env.eb_file }}
+
+      - name: Create aplication version
+        run: aws elasticbeanstalk create-application-version --application-name ${{ env.eb_application }} --version-label ${{ env.eb_version }} --source-bundle S3Bucket=${{ env.eb_bucket }},S3Key=${{ env.eb_file }}
+
+      - name: Update environment
+        run: aws elasticbeanstalk update-environment --application-name ${{ env.eb_application }} --environment-name ${{ env.eb_envname }} --version-label ${{ env.eb_version }}
