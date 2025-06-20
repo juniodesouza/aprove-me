@@ -25,7 +25,7 @@ Após o container iniciar, abra o navegador em [http://localhost:8080](http://lo
 Usuário e senha de acesso
 
 - **user**: _aprovame_
-- **password**: _aprovame_.
+- **password**: _aprovame_
 
 ## Instruções específicas para cada aplicação
 
