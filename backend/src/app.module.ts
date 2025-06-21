@@ -7,10 +7,12 @@ import { UserModule } from './user/user.module'
 import { APP_GUARD } from '@nestjs/core'
 import { JwtAuthGuard } from './auth/infrastructure/guards/jwt-auth.guard'
 import { AuthModule } from './auth/module'
+import { PrismaModule } from './shared/prisma.module'
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
+    PrismaModule,
     HealthModule,
     AuthModule,
     UserModule,

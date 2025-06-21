@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common'
-import { PrismaService } from '@/shared/infrastructure/database/prisma.service'
 import { AssignorRepository } from './domain/assignor.repository'
 import { AssignorPrismaRepository } from './infrastructure/assignor-prisma.repository'
 import { CreateAssignorUseCase } from './application/usecases/assignor.create.usecase'
@@ -13,7 +12,6 @@ import { AssignorController } from './infrastructure/assignor.controller'
   imports: [],
   controllers: [AssignorController],
   providers: [
-    PrismaService,
     {
       provide: AssignorRepository,
       useClass: AssignorPrismaRepository,

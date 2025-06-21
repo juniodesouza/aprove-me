@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common'
-import { PrismaService } from '@/shared/infrastructure/database/prisma.service'
 import { UserRepository } from './domain/user.repository'
 import { UserPrismaRepository } from './infrastructure/user-prisma.repository'
 import { CreateUserUseCase } from './application/usecases/user.create.usecase'
@@ -14,7 +13,6 @@ import { BcryptHashAdapter } from '@/shared/infrastructure/adapters/bcrypt.adapt
   imports: [],
   controllers: [UserController],
   providers: [
-    PrismaService,
     {
       provide: UserRepository,
       useClass: UserPrismaRepository,

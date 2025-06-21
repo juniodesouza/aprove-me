@@ -2,7 +2,7 @@ name: Deploy in AWS Amplify
 
 on:
   push:
-    branches: [main]
+    branches: [main_]
 
 env:
   BRANCH_NAME: main

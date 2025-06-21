@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common'
 import { PayableController } from './infrastructure/payable.controller'
-import { PrismaService } from '@/shared/infrastructure/database/prisma.service'
 import { CreatePayableUseCase } from './application/usecases/payable.create.usecase'
 import { PayableRepository } from './domain/payable.repository'
 import { PayablePrismaRepository } from './infrastructure/payable-prisma.repository'
@@ -14,7 +13,6 @@ import { FindAllPayablesUseCase } from './application/usecases/payable.find-all.
   imports: [AssignorModule],
   controllers: [PayableController],
   providers: [
-    PrismaService,
     {
       provide: PayableRepository,
       useClass: PayablePrismaRepository,

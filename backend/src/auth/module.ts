@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common'
 import { JwtModule } from '@nestjs/jwt'
-import { PrismaService } from '@/shared/infrastructure/database/prisma.service'
 import { HashProvider } from '@/shared/application/providers/hash.provider'
 import { BcryptHashAdapter } from '@/shared/infrastructure/adapters/bcrypt.adapter'
 import { UserModule } from '@/user/user.module'
@@ -14,7 +13,6 @@ import { AuthController } from './infrastructure/http/auth.controller'
   imports: [JwtModule.register({}), UserModule],
   controllers: [AuthController],
   providers: [
-    PrismaService,
     {
       provide: TokenProvider,
       useClass: JwtTokenAdapter,
